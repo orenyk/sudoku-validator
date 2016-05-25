@@ -1,3 +1,5 @@
+require_relative "./subgrouper.rb"
+
 class Board
   def initialize(grid:)
     @grid = grid
@@ -12,7 +14,7 @@ class Board
   end
 
   def subgroups
-
+    Subgrouper.extract(grid: grid)
   end
 
   private

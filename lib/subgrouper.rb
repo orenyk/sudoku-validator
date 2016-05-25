@@ -1,6 +1,10 @@
 class Subgrouper
   SUBGROUP_SIZE = 3
 
+  def self.extract(grid:)
+    new(grid: grid).extract
+  end
+
   def initialize(grid:)
     @grid = grid
   end
