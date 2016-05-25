@@ -14,4 +14,8 @@ class Validator
     # was provided for you. Don't be hesistant to extract new objects (and
     # write tests for them).
   end
+
+  private
+
+  attr_accessor :puzzle_string
 end
