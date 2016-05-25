@@ -1,6 +1,7 @@
 require_relative "./board.rb"
 require_relative "./group_validator.rb"
 require_relative "./parser.rb"
+require_relative "./subgrouper.rb"
 
 class Validator
   VALID_MSG = "This sudoku is valid."
@@ -38,7 +39,7 @@ class Validator
   end
 
   def board
-    @board ||= Board.new(grid: grid)
+    @board ||= Board.new(grid: grid, subgrouper: Subgrouper)
   end
 
   def grid

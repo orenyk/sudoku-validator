@@ -4,7 +4,8 @@ describe Board do
   context "#rows" do
     it "returns an array of rows" do
       grid = mock_grid
-      board = Board.new(grid: grid)
+      subgrouper = mock_subgrouper
+      board = Board.new(grid: grid, subgrouper: subgrouper)
       expected = Array.new(9, (1..9).to_a)
 
       result = board.rows
@@ -16,7 +17,8 @@ describe Board do
   context "#cols" do
     it "returns an array of the columns" do
       grid = mock_grid
-      board = Board.new(grid: grid)
+      subgrouper = mock_subgrouper
+      board = Board.new(grid: grid, subgrouper: subgrouper)
       expected = Array.new(9) { |i| Array.new(9, i+1) }
 
       result = board.cols
@@ -26,21 +28,25 @@ describe Board do
   end
 
   context "#subgroups" do
-    it "returns an array of subgroups" do
+    it "calls #extract on the subgrouper" do
       grid = mock_grid
-      board = Board.new(grid: grid)
-      expected = Array.new(9) do |i|
-        base = 3 * (i % 3)
-        ((base + 1)..(base + 3)).to_a * 3
-      end
+      subgrouper = mock_subgrouper
+      board = Board.new(grid: grid, subgrouper: subgrouper)
 
-      result = board.subgroups
+      board.subgroups
 
-      expect(result).to eq(expected)
+      expect(subgrouper).to have_received(:extract)
+        .with(grid: grid)
     end
   end
 
   def mock_grid
     Array.new(9, (1..9).to_a)
+  end
+
+  def mock_subgrouper
+    double("subgrouper").tap do |subgrouper|
+      allow(subgrouper).to receive(:extract)
+    end
   end
 end
